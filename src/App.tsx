@@ -1,8 +1,7 @@
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Categories from './components/Categories';
-import Sort from './components/Sort';
-import SushiBlock from './components/SushiBlock';
-// import Cart from './pages/Cart';
+import Cart from './pages/Cart';
+import Home from './pages/Home';
 
 function App() {
     return (
@@ -10,19 +9,10 @@ function App() {
             <div className='wrapper'>
                 <Header />
                 <div className='content'>
-                    <div className='container'>
-                        <div className='content__top'>
-                            <Categories />
-                            <Sort />
-                        </div>
-                        <h2 className='content__title'>Все роллы</h2>
-                        <div className='content__items'>
-                            <SushiBlock />
-                            <SushiBlock />
-                            <SushiBlock />
-                            <SushiBlock />
-                        </div>
-                    </div>
+                    <Routes>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/cart' element={<Cart />} />
+                    </Routes>
                 </div>
             </div>
         </>
