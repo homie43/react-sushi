@@ -2,6 +2,7 @@ import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
 import SushiBlock from './components/SushiBlock';
+// import Cart from './pages/Cart';
 
 function App() {
     return (
