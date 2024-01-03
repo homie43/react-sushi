@@ -12,12 +12,16 @@ const Home = () => {
             </div>
             <h2 className='content__title'>Все роллы</h2>
             <div className='content__items'>
-                {sushis.map((item) => (
+                {sushis.map((obj) => (
                     <SushiBlock
-                        title={item.title}
-                        imageUrl={item.imageUrl}
-                        describe={item.describe}
-                        price={item.price}
+                        key={obj.id}
+                        // title={obj.title}
+                        // imageUrl={obj.imageUrl}
+                        // describe={obj.describe}
+                        // price={obj.price}
+                        // если я уверен что в компоненте будут все свойства, что я описал выше
+                        // то передаю просто с помощуью спред оператора
+                        {...obj}
                     />
                 ))}
             </div>
