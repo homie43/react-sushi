@@ -1,20 +1,25 @@
 import React from 'react';
 
-const SushiBlock = () => {
+interface SushiBlockProps {
+    title: string;
+    imageUrl: string;
+    describe: string;
+    price: number;
+}
+
+const SushiBlock: React.FC<SushiBlockProps> = ({
+    title,
+    imageUrl,
+    describe,
+    price,
+}) => {
     return (
         <div className='sushi-block'>
-            <img
-                className='sushi-block__image'
-                src='https://static.sushiwok.ru/img/d8f116c4ad734759f875095afcfa30c6/500x500'
-                alt='Pizza'
-            />
-            <h4 className='sushi-block__title'>Ролл Азиатский краб</h4>
-            <p className='sushi-block__descr'>
-                краб-крем, омлет тамаго, сыр сливочный, салат айсберг, шеф-соус,
-                азиатский соус, паприка, кунжут 234 г
-            </p>
+            <img className='sushi-block__image' src={imageUrl} alt='Sushi' />
+            <h4 className='sushi-block__title'>{title}</h4>
+            <p className='sushi-block__descr'>{describe}</p>
             <div className='sushi-block__bottom'>
-                <div className='sushi-block__price'>от 395 ₽</div>
+                <div className='sushi-block__price'>{price} ₽</div>
                 <div className='button button--outline button--add'>
                     <svg
                         width='12'

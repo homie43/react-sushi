@@ -1,6 +1,7 @@
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import SushiBlock from '../components/SushiBlock';
+import sushis from '../assets/db.json';
 
 const Home = () => {
     return (
@@ -11,10 +12,14 @@ const Home = () => {
             </div>
             <h2 className='content__title'>Все роллы</h2>
             <div className='content__items'>
-                <SushiBlock />
-                <SushiBlock />
-                <SushiBlock />
-                <SushiBlock />
+                {sushis.map((item) => (
+                    <SushiBlock
+                        title={item.title}
+                        imageUrl={item.imageUrl}
+                        describe={item.describe}
+                        price={item.price}
+                    />
+                ))}
             </div>
         </div>
     );
