@@ -1,4 +1,4 @@
-import logoImage from '../img/sushi-logo.svg';
+import logoImage from '../assets/img/sushi-logo.svg';
 
 const Header = () => {
     return (
