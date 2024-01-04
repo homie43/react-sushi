@@ -1,35 +1,58 @@
+@import '../variables';
+
 .header {
-    border-bottom: 1px solid #f6f6f6;
+    margin-top: -50px; // это костыль
+    border-bottom: 1px solid $gray-line;
     padding: 40px 0;
 
+    @media (max-width: 390px) {
+        padding: 20px 0;
+    }
+
     .container {
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
         align-items: center;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
         justify-content: space-between;
+
+        @media (max-width: 1026px) {
+            justify-content: center;
+            flex-direction: column;
+        }
     }
 
     &__logo {
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
+
+        @media (max-width: 645px) {
+            margin-top: 17px;
+        }
+
         img {
             margin-right: 15px;
+
+            @media (max-width: 390px) {
+                width: 43px;
+            }
         }
+
         h1 {
             color: #181818;
             font-size: 24px;
             letter-spacing: 1%;
             text-transform: uppercase;
             font-weight: 800;
+
+            @media (max-width: 400px) {
+                font-size: 18px;
+            }
         }
+
         p {
             color: #7b7b7b;
+
+            @media (max-width: 400px) {
+                font-size: 13px;
+            }
         }
     }
 }
