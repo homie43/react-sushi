@@ -17,7 +17,6 @@ export interface Sushi {
 
 const Home = () => {
     const [items, setItems] = React.useState<Sushi[]>([]);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
