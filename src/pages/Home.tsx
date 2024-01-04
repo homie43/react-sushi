@@ -4,8 +4,18 @@ import Sort from '../components/Sort';
 import SushiBlock from '../components/SushiBlock';
 import axios from 'axios';
 
+export interface Sushi {
+    id: number;
+    title: string;
+    describe: string;
+    price: number;
+    imageUrl: string;
+    category: number;
+    rating: number;
+}
+
 const Home = () => {
-    const [items, setItems] = React.useState([]);
+    const [items, setItems] = React.useState<Sushi[]>([]);
 
     React.useEffect(() => {
         async function fetchData() {
@@ -30,16 +40,16 @@ const Home = () => {
             </div>
             <h2 className='content__title'>Все роллы</h2>
             <div className='content__items'>
-                {items.map((obj) => (
+                {items.map((sushi) => (
                     <SushiBlock
-                        key={obj.id}
-                        title={obj.title}
-                        imageUrl={obj.imageUrl}
-                        describe={obj.describe}
-                        price={obj.price}
+                        key={sushi.id}
+                        // title={sushi.title}
+                        // imageUrl={sushi.imageUrl}
+                        // describe={sushi.describe}
+                        // price={sushi.price}
                         // если я уверен что в компоненте будут все свойства, что я описал выше
                         // то передаю просто с помощуью спред оператора
-                        // {...obj}
+                        {...sushi}
                     />
                 ))}
             </div>
