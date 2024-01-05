@@ -18,24 +18,28 @@ export interface Sushi {
 const Home = () => {
     const [items, setItems] = React.useState<Sushi[]>([]);
     const [isLoading, setIsLoading] = React.useState(false);
+    // выбор категории
+    const [categoryId, setCategoryId] = React.useState(0);
 
     React.useEffect(() => {
         async function fetchData() {
             try {
                 setIsLoading(true);
                 const itemsRespone = await axios.get(
-                    'https://79468735656e78dd.mokky.dev/items'
+                    `https://79468735656e78dd.mokky.dev/items?${
+                        categoryId > 0 ? `category=${categoryId}` : ''
+                    }`
                 );
                 setItems(itemsRespone.data);
                 setIsLoading(false);
             } catch (error) {
-                console.log('Ошибка при запросе данных');
+                alert('Ошибка при запросе данных');
                 console.log(error);
                 setIsLoading(true);
             }
         }
         fetchData();
-    }, []); // при первом рендере отрабоает useEffect
+    }, [categoryId]); // при первом рендере отрабоает useEffect
 
     const skeletons = [...new Array(4)].map((_, index) => (
         <Skeleton key={index} />
@@ -57,7 +61,10 @@ const Home = () => {
     return (
         <div className='container'>
             <div className='content__top'>
-                <Categories />
+                <Categories
+                    categoryId={categoryId}
+                    changeCategory={setCategoryId}
+                />
                 <Sort />
             </div>
             <h2 className='content__title'>Все роллы</h2>

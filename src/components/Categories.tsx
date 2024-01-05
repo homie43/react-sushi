@@ -1,21 +1,24 @@
 import React from 'react';
 
+export interface CategoriesProps {
+    categoryId: number;
+    changeCategory: (index: number) => void; // setCategoryId ничего не возвращает, по этому и void
+}
+
 const categories = ['Все', 'Классические', 'Запечёные', 'Вегетаринаские'];
 
-const Categories = () => {
-    const [activeIndex, setActiveIndex] = React.useState(0);
-
-    const onClickCategory = (index: number) => {
-        setActiveIndex(index);
-    };
+const Categories: React.FC<CategoriesProps> = ({
+    categoryId,
+    changeCategory,
+}) => {
     return (
         <div className='categories'>
             <ul>
                 {categories.map((item, index) => (
                     <li
-                        className={activeIndex === index ? 'active' : ''}
+                        className={categoryId === index ? 'active' : ''}
                         key={index}
-                        onClick={() => onClickCategory(index)}
+                        onClick={() => changeCategory(index)}
                     >
                         {item}
                     </li>
