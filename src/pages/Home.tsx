@@ -4,6 +4,8 @@ import Sort from '../components/Sort';
 import SushiBlock from '../components/SushiBlock';
 import axios from 'axios';
 import Skeleton from '../components/Skeleton';
+import { SortItem } from '../components/Sort';
+import { SortPropertyEnum } from '../types/types';
 
 export interface Sushi {
     id: number;
@@ -18,8 +20,15 @@ export interface Sushi {
 const Home = () => {
     const [items, setItems] = React.useState<Sushi[]>([]);
     const [isLoading, setIsLoading] = React.useState(false);
+
     // выбор категории
     const [categoryId, setCategoryId] = React.useState(0);
+
+    // сортировка
+    const [sortValue, setSortValue] = React.useState<SortItem>({
+        name: 'популярности 👆',
+        sortProp: SortPropertyEnum.RATING,
+    });
 
     React.useEffect(() => {
         async function fetchData() {
@@ -28,7 +37,7 @@ const Home = () => {
                 const itemsRespone = await axios.get(
                     `https://79468735656e78dd.mokky.dev/items?${
                         categoryId > 0 ? `category=${categoryId}` : ''
-                    }`
+                    }&sortBy=${sortValue.sortProp}`
                 );
                 setItems(itemsRespone.data);
                 setIsLoading(false);
@@ -39,7 +48,7 @@ const Home = () => {
             }
         }
         fetchData();
-    }, [categoryId]); // при первом рендере отрабоает useEffect
+    }, [categoryId, sortValue.sortProp]); // при первом рендере отрабоает useEffect
 
     const skeletons = [...new Array(4)].map((_, index) => (
         <Skeleton key={index} />
@@ -65,7 +74,7 @@ const Home = () => {
                     categoryId={categoryId}
                     changeCategory={setCategoryId}
                 />
-                <Sort />
+                <Sort sortValue={sortValue} setSortValue={setSortValue} />
             </div>
             <h2 className='content__title'>Все роллы</h2>
             <div className='content__items'>

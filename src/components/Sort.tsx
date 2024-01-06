@@ -1,18 +1,26 @@
 import React from 'react';
+import { SortPropertyEnum } from '../types/types';
 
-const sortList: string[] = [
-    'популярности 👆',
-    'популярности 👇',
-    'цене 👆',
-    'цене 👇',
+export interface SortProps {
+    sortValue: SortItem;
+    setSortValue: (obj: SortItem) => void;
+}
+
+export interface SortItem {
+    name: string;
+    sortProp: SortPropertyEnum;
+}
+
+const sortList: SortItem[] = [
+    { name: 'популярности 👆', sortProp: SortPropertyEnum.RATING },
+    { name: 'цене 👆', sortProp: SortPropertyEnum.PRICE },
 ];
 
-const Sort = () => {
+const Sort: React.FC<SortProps> = ({ sortValue, setSortValue }) => {
     const [open, setOpen] = React.useState(false); // popup окно
-    const [selected, setSelected] = React.useState(0);
 
-    const onClickSort = (index: number) => {
-        setSelected(index);
+    const onClickSort = (obj: SortItem) => {
+        setSortValue(obj);
         setOpen(false);
     };
 
@@ -32,18 +40,22 @@ const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setOpen(!open)}>{sortList[selected]}</span>
+                <span onClick={() => setOpen(!open)}>{sortValue.name}</span>
             </div>
             {open && (
                 <div className='sort__popup'>
                     <ul>
-                        {sortList.map((item, index) => (
+                        {sortList.map((obj, index) => (
                             <li
                                 key={index}
-                                className={selected === index ? 'active' : ''}
-                                onClick={() => onClickSort(index)}
+                                className={
+                                    sortValue.sortProp === obj.sortProp
+                                        ? 'active'
+                                        : ''
+                                }
+                                onClick={() => onClickSort(obj)}
                             >
-                                {item}
+                                {obj.name}
                             </li>
                         ))}
                     </ul>
