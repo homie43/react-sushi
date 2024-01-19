@@ -6,6 +6,10 @@ import axios from 'axios';
 import Skeleton from '../components/Skeleton';
 import { SortItem } from '../components/Sort';
 import { SortPropertyEnum } from '../types/types';
+import { useSelector } from 'react-redux';
+import { changeCategoryId } from '../redux/slices/filter/filterSlice';
+import { useAppDispatch } from '../redux/store';
+import type { RootState } from '../redux/store';
 
 export interface Sushi {
     id: number;
@@ -18,11 +22,18 @@ export interface Sushi {
 }
 
 const Home = () => {
+    const dispatch = useAppDispatch();
+
     const [items, setItems] = React.useState<Sushi[]>([]);
     const [isLoading, setIsLoading] = React.useState(false);
 
     // выбор категории
-    const [categoryId, setCategoryId] = React.useState(0);
+    const { categoryId } = useSelector((state: RootState) => state.filter);
+
+    const onChangeCategory = (idx: number) => {
+        dispatch(changeCategoryId(idx));
+    };
+    // const [categoryId, setCategoryId] = React.useState(0);
 
     // сортировка
     const [sortValue, setSortValue] = React.useState<SortItem>({
@@ -72,7 +83,7 @@ const Home = () => {
             <div className='content__top'>
                 <Categories
                     categoryId={categoryId}
-                    changeCategory={setCategoryId}
+                    changeCategory={onChangeCategory}
                 />
                 <Sort sortValue={sortValue} setSortValue={setSortValue} />
             </div>
