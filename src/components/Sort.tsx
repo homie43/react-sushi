@@ -18,14 +18,8 @@ const sortList: SortItem[] = [
 ];
 
 const Sort: React.FC<SortProps> = ({ sortValue }) => {
-    const [open, setOpen] = React.useState(false); // popup окно
-
-    // const onClickSort = (obj: SortItem) => {
-    //     setSortValue(obj);
-    //     setOpen(false);
-    // };
-
     const dispatch = useAppDispatch();
+    const [open, setOpen] = React.useState(false); // popup окно
 
     const onClickSort = (obj: SortItem) => {
         dispatch(setSort(obj));

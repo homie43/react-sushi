@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { changeCategoryId } from '../redux/slices/filter/filterSlice';
 import { useAppDispatch } from '../redux/store';
 import type { RootState } from '../redux/store';
+import { SearchProps } from '../components/Search/Search';
 
 export interface Sushi {
     id: number;
@@ -19,7 +20,7 @@ export interface Sushi {
     rating: number;
 }
 
-const Home = () => {
+const Home: React.FC<SearchProps> = ({ searchValue }) => {
     const dispatch = useAppDispatch();
     const [items, setItems] = React.useState<Sushi[]>([]);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -33,13 +34,14 @@ const Home = () => {
     };
 
     React.useEffect(() => {
+        const category = categoryId > 0 ? `category=${categoryId}` : '';
+        const search = searchValue ? `&title=*${searchValue}` : ``;
+        console.log(search);
         async function fetchData() {
             try {
                 setIsLoading(true);
                 const itemsRespone = await axios.get(
-                    `https://79468735656e78dd.mokky.dev/items?${
-                        categoryId > 0 ? `category=${categoryId}` : ''
-                    }&sortBy=${sortValue.sortProp}`
+                    `https://79468735656e78dd.mokky.dev/items?${search}${category}&sortBy=${sortValue.sortProp}`
                 );
                 setItems(itemsRespone.data);
                 setIsLoading(false);
@@ -50,7 +52,7 @@ const Home = () => {
             }
         }
         fetchData();
-    }, [categoryId, sortValue.sortProp]); // при первом рендере отрабоает useEffect
+    }, [categoryId, searchValue, sortValue.sortProp]); // при первом рендере отрабоает useEffect
 
     const skeletons = [...new Array(4)].map((_, index) => (
         <Skeleton key={index} />
