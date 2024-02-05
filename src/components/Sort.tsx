@@ -1,9 +1,10 @@
 import React from 'react';
 import { SortPropertyEnum } from '../types/types';
+import { useAppDispatch } from '../redux/store';
+import { setSort } from '../redux/slices/filter/filterSlice';
 
 export interface SortProps {
     sortValue: SortItem;
-    setSortValue: (obj: SortItem) => void;
 }
 
 export interface SortItem {
@@ -16,11 +17,18 @@ const sortList: SortItem[] = [
     { name: 'цене 👆', sortProp: SortPropertyEnum.PRICE },
 ];
 
-const Sort: React.FC<SortProps> = ({ sortValue, setSortValue }) => {
+const Sort: React.FC<SortProps> = ({ sortValue }) => {
     const [open, setOpen] = React.useState(false); // popup окно
 
+    // const onClickSort = (obj: SortItem) => {
+    //     setSortValue(obj);
+    //     setOpen(false);
+    // };
+
+    const dispatch = useAppDispatch();
+
     const onClickSort = (obj: SortItem) => {
-        setSortValue(obj);
+        dispatch(setSort(obj));
         setOpen(false);
     };
 

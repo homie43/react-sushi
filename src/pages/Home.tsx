@@ -4,8 +4,6 @@ import Sort from '../components/Sort';
 import SushiBlock from '../components/SushiBlock';
 import axios from 'axios';
 import Skeleton from '../components/Skeleton';
-import { SortItem } from '../components/Sort';
-import { SortPropertyEnum } from '../types/types';
 import { useSelector } from 'react-redux';
 import { changeCategoryId } from '../redux/slices/filter/filterSlice';
 import { useAppDispatch } from '../redux/store';
@@ -23,23 +21,16 @@ export interface Sushi {
 
 const Home = () => {
     const dispatch = useAppDispatch();
-
     const [items, setItems] = React.useState<Sushi[]>([]);
     const [isLoading, setIsLoading] = React.useState(false);
 
     // выбор категории
-    const { categoryId } = useSelector((state: RootState) => state.filter);
-
+    const { categoryId, sortValue } = useSelector(
+        (state: RootState) => state.filter
+    );
     const onChangeCategory = (idx: number) => {
         dispatch(changeCategoryId(idx));
     };
-    // const [categoryId, setCategoryId] = React.useState(0);
-
-    // сортировка
-    const [sortValue, setSortValue] = React.useState<SortItem>({
-        name: 'популярности 👆',
-        sortProp: SortPropertyEnum.RATING,
-    });
 
     React.useEffect(() => {
         async function fetchData() {
@@ -73,7 +64,7 @@ const Home = () => {
             // describe={sushi.describe}
             // price={sushi.price}
             // если я уверен что в компоненте будут все свойства, что я описал выше
-            // то передаю просто с помощуью спред оператора
+            // то передаю просто с помощью спред оператора
             {...sushi}
         />
     ));
@@ -85,7 +76,7 @@ const Home = () => {
                     categoryId={categoryId}
                     changeCategory={onChangeCategory}
                 />
-                <Sort sortValue={sortValue} setSortValue={setSortValue} />
+                <Sort sortValue={sortValue} />
             </div>
             <h2 className='content__title'>Все роллы</h2>
             <div className='content__items'>
