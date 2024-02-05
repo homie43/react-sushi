@@ -57,16 +57,7 @@ const Home = () => {
     )); // рендер фейкового массива
 
     const sushis = items.map((sushi) => (
-        <SushiBlock
-            key={sushi.id}
-            // title={sushi.title}
-            // imageUrl={sushi.imageUrl}
-            // describe={sushi.describe}
-            // price={sushi.price}
-            // если я уверен что в компоненте будут все свойства, что я описал выше
-            // то передаю просто с помощью спред оператора
-            {...sushi}
-        />
+        <SushiBlock key={sushi.id} {...sushi} />
     ));
 
     return (
