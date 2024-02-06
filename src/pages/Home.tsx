@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { changeCategoryId } from '../redux/slices/filter/filterSlice';
 import { useAppDispatch } from '../redux/store';
 import type { RootState } from '../redux/store';
-import { SearchProps } from '../components/Search/Search';
 
 export interface Sushi {
     id: number;
@@ -20,13 +19,13 @@ export interface Sushi {
     rating: number;
 }
 
-const Home: React.FC<SearchProps> = ({ searchValue }) => {
+const Home: React.FC = () => {
     const dispatch = useAppDispatch();
     const [items, setItems] = React.useState<Sushi[]>([]);
     const [isLoading, setIsLoading] = React.useState(false);
 
     // выбор категории
-    const { categoryId, sortValue } = useSelector(
+    const { categoryId, sortValue, searchValue } = useSelector(
         (state: RootState) => state.filter
     );
     const onChangeCategory = (idx: number) => {
@@ -36,7 +35,6 @@ const Home: React.FC<SearchProps> = ({ searchValue }) => {
     React.useEffect(() => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&title=*${searchValue}` : ``;
-        console.log(search);
         async function fetchData() {
             try {
                 setIsLoading(true);

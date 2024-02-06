@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
 import logoImage from '../assets/img/sushi-logo.svg';
-import Search, { SearchProps } from './Search/Search';
+import Search from './Search/Search';
 
-export const Header: React.FC<SearchProps> = ({
-    searchValue,
-    setSearchValue,
-}) => {
+export const Header: React.FC = () => {
     return (
         <div className='header'>
             <div className='container'>
@@ -19,10 +16,7 @@ export const Header: React.FC<SearchProps> = ({
                     </div>
                 </Link>
 
-                <Search
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                />
+                <Search />
 
                 <div className='header__cart'>
                     <Link to='/cart' className='button button--cart'>

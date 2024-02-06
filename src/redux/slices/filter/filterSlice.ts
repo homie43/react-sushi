@@ -6,6 +6,7 @@ import { SortItem } from '../../../components/Sort';
 export interface FilterState {
     categoryId: number;
     sortValue: SortItem;
+    searchValue: string;
 }
 
 const initialState: FilterState = {
@@ -14,6 +15,7 @@ const initialState: FilterState = {
         name: 'популярности 👆',
         sortProp: SortPropertyEnum.RATING,
     },
+    searchValue: '',
 };
 
 export const filterSlice = createSlice({
@@ -26,9 +28,13 @@ export const filterSlice = createSlice({
         setSort: (state, action: PayloadAction<SortItem>) => {
             state.sortValue = action.payload;
         },
+        setSearchValue: (state, action: PayloadAction<string>) => {
+            state.searchValue = action.payload;
+        },
     },
 });
 
-export const { changeCategoryId, setSort } = filterSlice.actions;
+export const { changeCategoryId, setSort, setSearchValue } =
+    filterSlice.actions;
 
 export default filterSlice.reducer;
