@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
                         <img width='38' src={logoImage} alt='Sushi logo' />
                         <div>
                             <h1>React Sushi</h1>
-                            <p>самые вкусные суши во вселенной</p>
+                            <p>самые вкусные суши</p>
                         </div>
                     </div>
                 </Link>
